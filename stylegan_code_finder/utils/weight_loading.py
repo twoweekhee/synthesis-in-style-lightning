@@ -6,7 +6,7 @@ from torch import nn
 
 
 def load_weights(networks: {str: nn.Module}, model_file: Union[str, Path], *, strict: bool = True):
-    weights = torch.load(model_file)
+    weights = torch.load(model_file, map_location=torch.device('cpu'))
     for key, module in networks.items():
         if key is not None and key in weights:
             module.load_state_dict(weights[key], strict=strict)

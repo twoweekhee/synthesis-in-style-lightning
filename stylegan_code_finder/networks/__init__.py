@@ -20,7 +20,7 @@ from networks.swagan.model import Generator as SWAGANGenerator
 
 
 def load_weights(network: nn.Module, model_file: Union[str, Path], *, key: str = None, strict: bool = True, convert: bool = False) -> nn.Module:
-    weights = torch.load(model_file)
+    weights = torch.load(model_file, map_location=torch.device('cpu'))
     if convert:
         weights = convert_autoencoder_checkpoint(weights)
     if key is not None and key in weights:
